@@ -1,0 +1,17 @@
+jira:
+  projectLabel: Development
+  projectKey: DEV
+  boardName: Dev Board
+  devtaskIssueTypeId: 10079
+  storyIssueTypeId: 10083
+github:
+  defaultBranch: main
+  owner: DynamicAutoSolutions
+  repo: all-clear-web
+  approvers: ["PhilipRead-AllClear", "acowdrey-dynamic"]
+  descriptionTemplate: |
+    * Additional Information Placeholder
+
+    [Jira](https://dynamicautosol.atlassian.net/browse/${issueKey})
+git:
+  defaultBranch: main
