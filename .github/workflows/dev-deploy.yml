@@ -1,0 +1,63 @@
+name: Build and deploy Next.js app to Azure Web App
+
+on:
+    push:
+        branches:
+            - main
+        workflow_dispatch:
+
+env:
+    WEBAPP_NAME: 'shop-reg-dev-web-wa'
+
+jobs:
+    build:
+        permissions:
+            id-token: write
+            contents: read
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Set up Node.js version
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '24.x'
+
+            - name: npm install, build, and test
+              run: |
+                  npm install
+                  npm run build
+                  mv ./build/static ./build/standalone/build
+                  mv ./public ./build/standalone
+
+            - name: Upload artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: standalone-build
+                  path: build/standalone
+
+    deploy:
+        runs-on: ubuntu-latest
+        environment: DEV
+        needs: build
+        permissions:
+            id-token: write
+        steps:
+            - name: Download artifact
+              uses: actions/download-artifact@v5
+              with:
+                  name: standalone-build
+
+            - name: 'Log in to Azure with AZ CLI'
+              uses: azure/login@v2
+              with:
+                  client-id: ${{ vars.AZURE_CLIENT_ID }}
+                  tenant-id: ${{ vars.AZURE_TENANT_ID }}
+                  subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+            - name: 'Deploy to Azure Web App'
+              id: deploy-to-webapp
+              uses: azure/webapps-deploy@v3
+              with:
+                  app-name: ${{ env.WEBAPP_NAME }}
+                  package: .
