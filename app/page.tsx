@@ -1,66 +1,81 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { AppBar, Toolbar, Typography, Button, Container, Grid, Card, CardContent, Box } from '@mui/material'
 
+// image 431 x 107
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+    return (
+        <main>
+            <AppBar position="static" color="transparent" elevation={0} sx={{ py: 2 }}>
+                <Toolbar
+                    sx={{
+                        maxWidth: '1600px',
+                        mx: 'auto',
+                        width: '90%',
+                        borderRadius: '50px',
+                        px: 4,
+                        py: 1,
+                        background: 'rgba(255,255,255,0.85)',
+                        backdropFilter: 'blur(10px)',
+                        boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                    }}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                        }}>
+                        <Button size="large" sx={{ mx: 1, color: 'black' }}>
+                            Services
+                        </Button>
+                        <Button size="large" sx={{ mx: 1, color: 'black' }}>
+                            About
+                        </Button>
+                        <Button size="large" sx={{ mx: 1, color: 'black' }}>
+                            Careers
+                        </Button>
+                        <Button size="large" sx={{ mx: 1, color: 'black' }}>
+                            Resources
+                        </Button>
+                        <Button size="large" sx={{ mx: 1, color: 'black' }}>
+                            Contact
+                        </Button>
+                    </Box>
+                </Toolbar>
+            </AppBar>
+
+            <Container>
+                <Grid container spacing={4}>
+                    <Grid size={6}>
+                        <Typography variant="h3" gutterBottom>
+                            All Clear Diagnostics and Calibration
+                        </Typography>
+                        <Typography variant="body1" gutterBottom>
+                            Your premier mobile sublet repair vendor providing same-day/next-day services.
+                        </Typography>
+                        <Button variant="contained" size="large" sx={{ mt: 2 }}>
+                            Schedule a Service
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Typography variant="h4" sx={{ mt: 8, mb: 4 }}>
+                    Our Services
+                </Typography>
+                <Grid container spacing={3}>
+                    {['ADAS Calibrations', 'Mechanical', 'Diagnostic', 'Programming'].map((service) => (
+                        <Grid size={3} key={service}>
+                            <Card sx={{ height: '100%' }}>
+                                <CardContent>
+                                    <Typography variant="h6" gutterBottom>
+                                        {service}
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        High‑quality {service.toLowerCase()} services guaranteed.
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Container>
+        </main>
+    )
 }
