@@ -7,7 +7,7 @@ on:
         workflow_dispatch:
 
 env:
-    WEBAPP_NAME: 'shop-reg-dev-web-wa'
+    WEBAPP_NAME: 'all-clear-web-dev-wa'
 
 jobs:
     build:
